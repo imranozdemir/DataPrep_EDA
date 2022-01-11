@@ -10,6 +10,8 @@ _If your data is bad, your machine learning tools are useless. by Thomas C.Redma
 
 -Missing Values
 
+ * Analysis of missing data requires an understanding of whether or not the value is missing at **random**, or whether there is some systemic reason for some of the data to be missing.
+
 -Encoding
 
 -Feature Scaling

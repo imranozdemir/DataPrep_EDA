@@ -82,11 +82,13 @@ class MyHelpers:
         return df_without_outliers
 
     def missing_values_table(self, dataframe, na_name = False):
+        #Number and ratio of missing values
         na_columns = [col for col in dataframe.columns if dataframe[col].isnull().sum() > 0]
         n_miss = dataframe[na_columns].isnull().sum().sort_values(ascending=False)
-        ratio = (dataframe[na_columns].isnull().sum() / dataframe.shape[0] * 1000).sort_values(ascending=False)
+        ratio = (dataframe[na_columns].isnull().sum() / dataframe.shape[0] * 100).sort_values(ascending=False)
         missing_df = pd.concat([n_miss, np.round(ratio, 1)], axis=1, keys=["n_miss", "ratio"])
         print(missing_df, end="\n")
+
         if na_name:
            return na_columns
 

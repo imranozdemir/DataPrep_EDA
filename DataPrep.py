@@ -40,9 +40,6 @@ class MyHelpers:
             return outlier_index
 
 
-
-
-
     def replace_with_thresholds(self, dataframe, variable):
         low_limit, up_limit = outlier_thresholds(dataframe, variable)
         dataframe.loc[(dataframe)]

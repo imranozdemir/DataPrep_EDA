@@ -4,7 +4,9 @@
 
 _If your data is bad, your machine learning tools are useless. by Thomas C.Redman_
 
--Outliers
+-**Outliers**
+
+ * Note that tree-based models robust to outliers
 
 -Missing Values
 

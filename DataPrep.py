@@ -40,11 +40,14 @@ class MyHelpers:
             return outlier_index
 
     def replace_with_thresholds(self, dataframe, variable):
+        #Replacing outliers with thresholds
         low_limit, up_limit = outlier_thresholds(dataframe, variable)
         dataframe.loc[(dataframe[variable] < low_limit), variable] = low_limit
         dataframe.loc[(dataframe[variable] > up_limit), variable] = up_limit
 
     def remove_outlier(self, dataframe, col_name):
+        #Remove outliers
         low_limit, up_limit = outlier_thresholds(dataframe, col_name)
         df_without_outliers = dataframe[~((dataframe[col_name] < low_limit) | (dataframe[col_name] > up_limit))]
         return df_without_outliers
+

@@ -4,7 +4,7 @@
 
 _If your data is bad, your machine learning tools are useless. by Thomas C.Redman_
 
-**-Outliers
+-Outliers
 
 -Missing Values
 
@@ -14,6 +14,6 @@ _If your data is bad, your machine learning tools are useless. by Thomas C.Redma
 
 -Feature Extraction
 
--Feature Interactions**
+-Feature Interactions
 
 

@@ -118,3 +118,12 @@ class MyHelpers:
         #If you want to apply one-hot-encoding to all categorical variables, drop_first should be True
         dataframe = pd.get_dummies(dataframe, columns= categorical_cols, drop_first=drop_first)
         return dataframe
+
+    def rare_analyser(self, dataframe, target, cat_cols):
+        for col in cat_cols:
+            print(col, ":", len(dataframe[col].value_counts()))
+            print(pd.DataFrame({"COUNT": dataframe[col].value_counts(),
+                                "RATIO": dataframe[col].value_counts() / len(dataframe),
+                                "TARGET_MEAN": dataframe.groupby(col)[target].mean()}), end="\n\n\n")
+
+    def rare_encoder(self, dataframe, rare_perc, cat_cols):

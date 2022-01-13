@@ -107,3 +107,14 @@ class MyHelpers:
                                 "Count": temp_df.groupby(col)[target].count()}), end="\n\n\n")
 
 
+    def label_encoder(self, dataframe, binary_col):
+        # Label Encoding Function
+        # define binary columns in binary_col
+        labelencoder = LabelEncoder()
+        dataframe[binary_col] = labelencoder.fit_transform(dataframe[binary_col])
+        return dataframe
+
+    def one_hot_encoder(self, dataframe, categorical_cols, drop_first=False):
+        #If you want to apply one-hot-encoding to all categorical variables, drop_first should be True
+        dataframe = pd.get_dummies(dataframe, columns= categorical_cols, drop_first=drop_first)
+        return dataframe

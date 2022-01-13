@@ -16,9 +16,12 @@ _If your data is bad, your machine learning tools are useless. by Thomas C.Redma
 -Encoding
  
  * Label Encoding
- * One Hot Encoding
+ * One-Hot Encoding
  * Rare Encoding
-
+   
+    **Rare labels are those that appear only in a tiny proportion of the observations in a dataset. Rare labels may cause some issues, especially with overfitting and generalization.
+The solution to that problem is to group those rare labels into a new category like other or rare—this way, the possible issues can be prevented.
+   
 -Feature Scaling
 
 -Feature Extraction

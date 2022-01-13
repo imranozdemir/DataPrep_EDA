@@ -127,3 +127,13 @@ class MyHelpers:
                                 "TARGET_MEAN": dataframe.groupby(col)[target].mean()}), end="\n\n\n")
 
     def rare_encoder(self, dataframe, rare_perc, cat_cols):
+        #Based on the result on rare_analyser function + business knowledge
+        #0.01 is modified to the business knowledge and rare_analyser function
+        rare_columns = [col for col in cat_cols if (dataframe[col].value_counts() / len(dataframe) < 0.01).sum()>1]
+
+        for col in rare_columns:
+            tmp = dataframe[col].value_counts() / len(dataframe)
+            rare_labels = tmp[tmp < rare_perc].index
+            dataframe[col] = np.where(dataframe[col].isin(rare_labels), "Rare", dataframe[col])
+        return dataframe
+

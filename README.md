@@ -14,6 +14,10 @@ _If your data is bad, your machine learning tools are useless. by Thomas C.Redma
  * https://www.analyticsvidhya.com/blog/2021/10/guide-to-deal-with-missing-values/
  
 -Encoding
+ 
+ * Label Encoding
+ * One Hot Encoding
+ * Rare Encoding
 
 -Feature Scaling
 

@@ -76,7 +76,7 @@ class MyHelpers:
         dataframe.loc[(dataframe[variable] > up_limit), variable] = up_limit
 
     def remove_outlier(self, dataframe, col_name):
-        #Remove outliers
+        #Removing outliers
         low_limit, up_limit = outlier_thresholds(dataframe, col_name)
         df_without_outliers = dataframe[~((dataframe[col_name] < low_limit) | (dataframe[col_name] > up_limit))]
         return df_without_outliers
@@ -92,5 +92,18 @@ class MyHelpers:
         if na_name:
            return na_columns
 
-   def missing_vs_target(self, dataframe, na_columns):
-       temp_df = dataframe.copy()
+    def missing_vs_target(self, dataframe, na_columns):
+        #Allowing us to see the importance of missing values to the target features
+        #Important function for feature engineering
+        temp_df = dataframe.copy()
+        for col in na_columns:
+            temp_df[col + '_NA_FLAG'] = np.where(temp_df[col].isnull(), 1, 0)
+            #adding binary flags for missing values
+        na_flags = temp_df.loc[:, temp_df.columns.str.contains("_NA_")].columns
+        #Pick flag added features
+        for col in na_flags:
+            #Do not forget to define target
+            print(pd.DataFrame({"TARGET_MEAN": temp_df.groupby(col)[target].mean(),
+                                "Count": temp_df.groupby(col)[target].count()}), end="\n\n\n")
+
+

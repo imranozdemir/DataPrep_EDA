@@ -26,7 +26,8 @@ class MyHelpers:
         print(dataframe.quantile([0, 0.05, 0.5, 0.95, 0.99, 1]).T)
 
     def cat_summary(self, dataframe, col_name, plot=False):
-        #EDA for categorical features
+        #EDA for categoric features
+        #Define categoric features before using this function
         print(pd.DataFrame({col_name: dataframe[col_name].value_counts(),
                             "Ratio": 100*dataframe[col_name].value_counts() / len(dataframe)}))
         if plot:
@@ -35,6 +36,7 @@ class MyHelpers:
 
     def num_summary(self, dataframe, numerical_col, plot=False):
         #EDA for numerical features
+        #Define numeric features before using this function
         quantiles = [0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 0.95, 0.99]
         print(dataframe[numerical_col].describe(quantiles).T)
 
@@ -80,24 +82,15 @@ class MyHelpers:
 
 
     def grap_col_names(self, dataframe, cat_th=10, car_th=20):
-       """
-       Grouping numeric columns, categoric columns, categoric but cardinal columns
-
-       :param dataframe: dataframe
-       :param cat_th: int, optinal
-       :param car_th: int, optinal
-       :return: cat_cols, num_cols and cat_but_car as a list
-       """
-       #cat_cols, cat_but_car
-        cat_cols = [col for col in dataframe.columns if dataframe[col].dtypes == "0"]
+        cat_cols = [col for col in dataframe.columns if dataframe[col].dtypes == "O"]
         num_but_cat = [col for col in dataframe.columns if dataframe[col].nunique() < cat_th
-                       and dataframe[col] != "0"]
-        cat_but_car = [col for col in dataframe.columns if dataframe[col].nunique() > car_th and dataframe[col].dtypes == "0"]
+                       and dataframe[col] != "O"]
+        cat_but_car = [col for col in dataframe.columns if dataframe[col].nunique() > car_th and dataframe[col].dtypes == "O"]
         cat_cols= cat_cols + num_but_cat
         cat_cols = [col for col in cat_cols if col not in cat_but_car]
 
         #num_cols
-        num_cols = [col for col in dataframe.columns if dataframe[col].dtypes != "0"]
+        num_cols = [col for col in dataframe.columns if dataframe[col].dtypes != "O"]
         num_cols = [col for col in num_cols if col not in num_but_cat]
 
         print(f"Observations: {dataframe.shape[0]}")

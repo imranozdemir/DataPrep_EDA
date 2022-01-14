@@ -8,6 +8,20 @@ from sklearn.preprocessing import LabelEncoder
 
 class MyHelpers:
 
+    def check_df(self, dataframe, head=10):
+        print("SHAPE")
+        print(dataframe.shape)
+        print("TYPES")
+        print(dataframe.dtypes)
+        print("HEAD")
+        print(dataframe.head(head))
+        print("TAIL")
+        print(dataframe.tail(head))
+        print("MISSING")
+        print(dataframe.isnull().sum())
+        print("QUANTILES")
+        print(dataframe.quantile([0, 0.05, 0.5, 0.95, 0.99, 1]).T)
+
 
 
     def grap_col_names(self, dataframe, cat_th=10, car_th=20):

@@ -43,8 +43,38 @@ class MyHelpers:
             plt.show()
 
 
+    def target_summary_with_cat(self, dataframe, target, categorical_col):
+        print(pd.DataFrame({"TARGET_MEAN": dataframe.groupby(categorical_col)[target].mean()}), end="\n\n\n")
+
+    def target_summary_with_num(self, dataframe, target, numerical_col):
+        print(dataframe.groupby(target).agg({numerical_col: "mean"}), end="\n\n\n")
 
 
+    def high_correlated_cols(self, dataframe, plot=False, corr_th=0.90):
+        corr = dataframe.corr()
+        cor_matrix = corr.abs()
+        upper_triangle_matrix = cor_matrix.where(np.triu(np.ones(cor_matrix.shape), k=1).astype(np.bool))
+        drop_list = [col for col in upper_triangle_matrix.columns if any(upper_triangle_matrix[col] > corr_th)]
+        if plot:
+            sns.set(rc={"figure.figsize": (15,15)})
+            sns.heatmap(corr, cmap= "RdBu")
+            plt.show()
+        return drop_list
+
+    def find_correlation(self, dataframe, numerical_cols, corr_limit=0.20):
+        high_correlations = []
+        low_correlations = []
+        for col in numerical_cols:
+            if col == "target":
+                pass
+            else:
+                correlation = dataframe[[col, "target"]].corr().loc[col, "target"]
+                print(col, correlation)
+                if abs(correlation) > corr_limit:
+                    high_correlations.append(col + ": " +str(correlation))
+                else:
+                    low_correlations.append(col + ": " + str(correlation))
+        return low_correlations, high_correlations
 
 
     def grap_col_names(self, dataframe, cat_th=10, car_th=20):

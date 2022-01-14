@@ -9,6 +9,7 @@ from sklearn.preprocessing import LabelEncoder
 class MyHelpers:
 
     def check_df(self, dataframe, head=10):
+        #Quickly review the data
         print("SHAPE")
         print(dataframe.shape)
         print("TYPES")
@@ -21,6 +22,28 @@ class MyHelpers:
         print(dataframe.isnull().sum())
         print("QUANTILES")
         print(dataframe.quantile([0, 0.05, 0.5, 0.95, 0.99, 1]).T)
+
+    def cat_summary(self, dataframe, col_name, plot=False):
+        #EDA for categorical features
+        print(pd.DataFrame({col_name: dataframe[col_name].value_counts(),
+                            "Ratio": 100*dataframe[col_name].value_counts() / len(dataframe)}))
+        if plot:
+            sns.countplot(x=dataframe[col_name], data= dataframe)
+            plt.show()
+
+    def num_summary(self, dataframe, numerical_col, plot=False):
+        #EDA for numerical features
+        quantiles = [0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 0.95, 0.99]
+        print(dataframe[numerical_col].describe(quantiles).T)
+
+        if plot:
+            dataframe[numerical_col].hist(bins=20)
+            plt.xlabel(numerical_col)
+            plt.title(numerical_col)
+            plt.show()
+
+
+
 
 
 

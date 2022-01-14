@@ -210,8 +210,6 @@ class MyHelpers:
 
     def create_date_features(self, dataframe):
         #Extracting date features
-        #Time/date components : https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#dateoffset-objects
-        #Formating : https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior
         dataframe["month"] = dataframe.date.dt.month
         dataframe["day_of_month"] = dataframe.date.dt.day
         dataframe["day_of_year"] = dataframe.date.dt.dayofyear

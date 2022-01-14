@@ -14,3 +14,5 @@ for col in dataframe.columns:
 
 for col in dataframe.columns:
     my_hepler_obj.num_summary(dataframe, col)
+
+my_hepler_obj.grap_col_names(dataframe)

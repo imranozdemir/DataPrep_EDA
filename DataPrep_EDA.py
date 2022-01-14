@@ -3,10 +3,12 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import time
 from sklearn.preprocessing import LabelEncoder
 
 
 class MyHelpers:
+    #This class contains a set of helper functions to return the Data Preprocessing and EDA
 
     def check_df(self, dataframe, head=10):
         #Quickly review the data
@@ -206,3 +208,17 @@ class MyHelpers:
             dataframe[col] = np.where(dataframe[col].isin(rare_labels), "Rare", dataframe[col])
         return dataframe
 
+    def create_date_features(self, dataframe):
+        #Extracting date features
+        #Time/date components : https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#dateoffset-objects
+        #Formating : https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior
+        dataframe["month"] = dataframe.date.dt.month
+        dataframe["day_of_month"] = dataframe.date.dt.day
+        dataframe["day_of_year"] = dataframe.date.dt.dayofyear
+        dataframe["week_of_year"] = dataframe.date.dt.weekofyear
+        dataframe["day_of_week"] = dataframe.date.dt.dayofweek
+        dataframe["is_wknd"] = dataframe.date.dt.weekday // 4
+        dataframe["year"] = dataframe.date.dt.year
+        dataframe["is_month_start"] = dataframe.date.dt.is_month_start.astype(int)
+        dataframe["is_month_end"] = dataframe.date.dt.is_month_end.astype(int)
+        return dataframe
